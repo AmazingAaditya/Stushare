@@ -1,0 +1,106 @@
+{% load static %}
+
+
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Stushare</title>
+        <link rel="stylesheet" href="{% static '/css/view.css' %}">
+        <link rel="stylesheet" href="{% static '/css/home.css' %}">
+        <link rel="stylesheet" href="{% static '/css/signup.css' %}">
+        <link rel="stylesheet" href="{% static '/css/messages.css' %}">
+        <link rel="stylesheet" href="{% static '/css/product.css' %}">
+        <link rel="stylesheet" href="{% static '/css/edit.css' %}">
+
+        <script src="https://kit.fontawesome.com/bc6f27e589.js" crossorigin="anonymous"></script>
+        <link rel="preconnect" href="https://fonts.gstatic.com">
+        <link href="https://fonts.googleapis.com/css2?family=Poppins&display=swap" rel="stylesheet">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+        
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    </head>
+    <body>
+        <form method="post" action="{% url 'itemEdit' item.id %}" enctype="multipart/form-data">
+            {% csrf_token %}
+            <div class = "nav-all">
+                <div class="brand">
+                    Stushare
+                </div>
+                <p> </p>
+                <a style="margin-left: auto;font-size: 20px; padding: 15px" href="{% url 'give' %}">Go Back</a>
+                <a style="font-size: 20px; padding: 15px" href="{% url 'get' %}"><i class="fas fa-home"></i>HOME</a>
+                
+                <a class="sign" style="font-size: 20px; padding: 15px; margin: 0px" href="{% url 'profile' %}"><i class="fa fa-user-circle"></i></a>
+                <a class="sign" style="font-size: 20px; padding: 15px; margin: 0px" href="{% url 'logout' %}"><i class="fas fa-sign-in-alt"></i></a>
+            </div>
+            <div id="page-des"><h2>Edit</h2></div>
+            <div class="prod-det">
+                <div class="prod-img">
+                    <label for="p-img"><img id="img-s" style="object-fit: contain;border: 0px solid;" src="/media/{{ item.item_pic }}"></label>
+                    <input type="file" onchange="update_img(event)" style="display: none;" id="p-img" name="p-img">
+                </div>
+                <div class="det">
+                    <section id="additional-det">
+                        <table>
+                            <tbody>
+                                <tr>
+                                    <th class="det-col-1">Name</th>
+                                    <th class="det-col-2"><input type="text" name="name" required value="{{item.name}}" id="e-name"></th>
+                                </tr>
+                               
+                                
+                                <tr>
+                                    <td class="det-space"></td>
+                                    <td class="det-space"></td>
+                                </tr>
+                                <tr>
+                                    <th class="det-col-1">Price</th>
+                                    <th class="det-col-2"><input type="number" name="price" required value="{{item.price}}" id="e-proce"></th>
+                                </tr>
+                                <tr>
+                                    <td class="det-space"></td>
+                                    <td class="det-space"></td>
+                                </tr>
+                                <tr>
+                                    <td class="det-space"></td>
+                                    <td class="det-space"></td>
+                                </tr>
+                            </thead>
+                        </table>
+                    </section>
+                    <section id="click">
+                        <input type="submit">
+                        <a style="all:unset" href="{% url 'itemDelete' item.id %}"><i class="fas fa-trash-alt"></i></a>
+                    </section>
+                </div>
+            </div>
+            <div class="des-prod" >
+                <h2>Description</h2>
+                <textarea rows="5" cols="500" id="e-des" name="description">{{item.description}}</textarea>
+            </div>
+        </form>
+        <div id="mess">
+            {% if messages %}
+                <ul class="messages">
+                    {% for message in messages %}
+                        <li {% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+                    {% endfor %}
+                </ul>
+            {% endif %}
+        </div>
+        <script>
+            const back = () =>{
+                window.history.back();
+            };
+            const update_img = (event) =>{
+                var d_img = document.getElementById("img-s");
+                var out = event.target.files[0];
+                d_img.src = URL.createObjectURL(out);
+            }
+            document.getElementById("mess").style.display = "block";
+                setTimeout(function(){
+                    document.getElementById("mess").style.display = "none";
+                },3000);
+        </script>
+    </body>
+</html>

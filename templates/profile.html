@@ -1,0 +1,90 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Profile</title>
+        <link rel="stylesheet" href="{% static '/css/home.css' %}">
+        <link rel="stylesheet" href="{% static '/css/signup.css' %}">
+        <link rel="stylesheet" href="{% static '/css/product.css' %}">
+
+        <script src="https://kit.fontawesome.com/bc6f27e589.js" crossorigin="anonymous"></script>
+        <link rel="preconnect" href="https://fonts.gstatic.com">
+        <link rel="stylesheet" href="{% static '/css/messages.css' %}">
+        <link href="https://fonts.googleapis.com/css2?family=Poppins&display=swap" rel="stylesheet">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+        
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+        <link rel="stylesheet" href="{% static '/css/edit.css' %}">
+        <link rel="stylesheet" href="{% static '/css/profile.css' %}">
+    </head>
+    <body>
+        <div class = "nav-all">
+            <div class="brand" style="color:black;background-color: #00A2FF; font-size: 40px; font-weight:900px;">Stushare</div>
+
+            <p> </p>
+            <a style="margin-left: auto;font-size: 15px;" href="{% url 'get' %}"><i class="fas fa-home"></i>HOME</a>
+            <a class="sign" href="{% url 'logout' %}"><i class="fas fa-sign-in-alt"></i></a>
+        </div>
+        <div id="page-des"><h2>Profile</h2></div>
+        <form method="post" action="{% url 'profile' %}" enctype="multipart/form-data">
+            {% csrf_token %}
+            <div class="prof-det">
+            <div class="user-img">
+                <label for="p-img"><img id="img-s" src="/media/{{ user.profile.profile_pic }}"></label>
+                <input type="file" onchange="update_img(event)" style="display: none;" id="p-img" name="p-img">
+            </div>
+            <div class="user-det">
+                <form>
+
+                    <table>
+                        <tr></tr>
+                        <tr>
+                            <th class="det-col-1">Username</th>
+                            <td><input type="text" required id="u-name" name="username" value="{{user.username}}"></td>
+                        </tr>
+                        <tr>
+                            <th class="det-col-1">Email</th>
+                            <td><input type="email" required id="u-email" name="email" value="{{user.email}}"></td>
+                        </tr>
+                        <tr>
+                            <th class="det-col-1">Phone Number</th>
+                            <td><input type="text" required id="u-no" name="phone_number" value="{{user.profile.phone_number}}"></td>
+                        </tr>
+                        <tr>
+                            <th class="det-col-1">Address</th>
+                            <td><textarea rows="3" cols="80" id="u-add" name="loc">{{user.profile.location}}</textarea></td>
+                        </tr>
+                    </table>
+                    <div id="p-but" style="align-content:flex-end;">
+                        <input type="submit">
+                    </div>
+                </form>
+            </div>
+        </div>
+        <div id="mess">
+            {% if messages %}
+                <ul class="messages">
+                    {% for message in messages %}
+                        <li {% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+                    {% endfor %}
+                </ul>
+            {% endif %}
+        </div>
+        </form>
+        <script>
+            const back = () =>{
+                window.history.back();
+            };
+            const update_img = (event) =>{
+            var d_img = document.getElementById("img-s");
+            var out = event.target.files[0];
+            d_img.src = URL.createObjectURL(out);
+        }
+        document.getElementById("mess").style.display = "block";
+        setTimeout(function(){
+            document.getElementById("mess").style.display = "none";
+        },3000);
+        </script>
+    </body>
+</html>

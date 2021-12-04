@@ -1,0 +1,76 @@
+{% load static %}
+
+<!DOCTYPE HTML>
+<html>
+    <head>
+        <title>Posts</title>
+        <link href="{% static '/css/signup.css' %}" rel="stylesheet">
+        <link rel="preconnect" href="https://fonts.gstatic.com">
+        <link href="{% static '/css/give.css' %}" rel="stylesheet">
+        
+        <link rel="stylesheet" href="{% static '/css/messages.css' %}">
+
+	    <link href="https://fonts.googleapis.com/css2?family=Poppins&display=swap" rel="stylesheet">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+        <script src="https://kit.fontawesome.com/bc6f27e589.js" crossorigin="anonymous"></script>
+        <style> 
+        #logo{
+            flex:1;
+            font-weight: 900;
+            font-size: 40px;
+            float:left;
+            background-color: #00A2FF;         
+}
+
+        
+        </style>
+    </head>
+    <body>
+        <div class="cont-main">
+            <div class="user-nav">
+                <p id="txt">  </p>
+                <a class="rem" href="{% url 'get' %}">Find products</a>
+                <a class="rem" href="{% url 'profile' %}"><i class="fa fa-user"></i></a>
+            </div>
+            <div id="logo">Stushare</div>
+            <div class="user-body">
+                <div class="container-1">
+                    <div class="cont-item-2">
+                        <h2 id="task-head">Create New Post</h2>
+                        <a id="img-hov" href="add/"><img src="{% static '/images/add.png' %}" width="200px" height="200px" style="margin-left: 40px;margin-bottom: 15px;"></a>
+                    </div>
+                </div>
+            </div>
+            <div class="user-body-2">
+                <h2 id="task-head">Active Posts</h2>
+                {% for item in items %}
+                    <div class="item-box">
+                        <img id="main-img" src="/media/{{ item.item_pic }}" width="250px" height="200px">
+                        <div id="p-hide">
+                            <img id="sec-img" src="/media/{{ item.owner.profile.profile_pic }}" width="20px" height="20px" style="margin-right:3px">
+                            {{item.name}}</div>
+                        <a href="{% url 'itemEdit' item.id %}" id="p-a">See More</a>
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+        <div id="mess">
+            {% if messages %}
+                <ul class="messages">
+                    {% for message in messages %}
+                        <li {% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+                    {% endfor %}
+                </ul>
+            {% endif %}
+        </div>
+        <script>
+            document.getElementById("mess").style.display = "block";
+                setTimeout(function(){
+                    document.getElementById("mess").style.display = "none";
+                },3000);
+        </script>
+    </body>
+</html>

@@ -1,0 +1,82 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Login</title>
+	<link rel="preconnect" href="{% static 'https://fonts.gstatic.com' %}">
+	<link href="https://fonts.googleapis.com/css2?family=Poppins&display=swap" rel="stylesheet">
+	<link rel="stylesheet" href="{% static '/css/signup.css' %}">
+	<link rel="stylesheet" href="{% static '/css/messages.css' %}">
+	<link rel="stylesheet" href="{% static '/css/homebasic.css' %}">
+	<link rel="stylesheet" href="{% static '/css/home.css' %}">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<style>
+		.head{
+			background-color: black;
+			color:#00A2FF;
+		}
+		.head > a{
+			color:#00A2FF;
+		}
+		.head > a:hover{
+			background-color:#00A2FF;
+			color:black;
+			border-bottom:2px solid black;
+			border-top: 2px solid black;
+		}
+	</style>
+</head>
+<body>
+	<div class="full">
+		<nav class="head">
+			<div id="logo">Stushare</div>
+			<a id="about" href="{% url 'welcome' %}">About</a>
+			<a id="sign" href="{% url 'register' %}">Sign Up</a>
+		</nav>
+	</div>
+	<div class="whole">
+		<div class="container">
+			<div class="child1">
+				<h1>Login</h1>
+                    <p style="font-size: 40px;">Good to see you again</p>
+			</div>
+			<div class="child">
+				<form method="post" action="{% url 'login' %}">
+					{% csrf_token %}
+
+					<div class="aligner">
+						<p style="color: black;font-size: 40px;">We just need a few details</p><br>
+						<input type="text" id="username" name="username" required placeholder="User Name">
+						<input type="password" id="password" name="password" required placeholder="Password">
+						<input type="submit">
+						<div id="mess">
+							{% if messages %}
+								<ul class="messages">
+									{% for message in messages %}
+										<li {% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+									{% endfor %}
+								</ul>
+							{% endif %}
+						</div>
+					</div>
+				</form>
+			</div>
+		</div>
+	</div>
+	<script>
+		function checker(){
+			var txt = document.getById("username").value;
+			if(txt.length<8)
+			{
+				alert("Username length must be greater than 8");
+				return false
+			}
+		}
+		document.getElementById("mess").style.display = "block";
+                setTimeout(function(){
+                    document.getElementById("mess").style.display = "none";
+                },3000);
+	</script>
+</body>
+</html>

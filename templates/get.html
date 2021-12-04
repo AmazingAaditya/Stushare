@@ -1,0 +1,96 @@
+{% load static %} 
+<!-- page where students can find posts by other students  -->
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Stushare</title>
+	    <link rel="stylesheet" href="{% static '/css/home.css' %}">
+
+        <script src="https://kit.fontawesome.com/bc6f27e589.js" crossorigin="anonymous"></script>
+	    <link rel="preconnect" href="https://fonts.gstatic.com">
+
+
+        <link rel="stylesheet" href="{% static '/css/messages.css' %}">
+
+	    <link href="https://fonts.googleapis.com/css2?family=Poppins&display=swap" rel="stylesheet">
+
+        <link rel="stylesheet" href="{% static '/css/product.css' %}">
+       
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+       
+	    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+        
+    </head>
+    
+    <body>
+        <nav class="head">
+			
+            <div id = "logo">Stushare</div>
+
+            <form class="search" action="{% url 'itemSearch' %}" method="get">
+                <input type="text" name="search" placeholder="search for posts by other students">
+                <button type="submit"><i class="fa fa-search"></i></button>
+            </form>
+			<a class="about" href="{% url 'give' %}">My Posts</a>
+            
+			<a class="sign" style="font-size: 20px; padding: 15px; margin: 0px" href="{% url 'profile' %}"><i class="fa fa-user-circle"></i></a>
+            <a class="sign" style="font-size: 20px; padding: 15px; margin: 0px" href="{% url 'logout' %}"><i class="fas fa-sign-in-alt"></i></a>
+		</nav>
+        
+
+        
+            <div class = "items-disp">
+                
+                <div class="item-box">
+                    {% for item in items %}
+                        <div class="item-box-1">
+                            <img id="main-img" src="/media/{{ item.item_pic }}" width="250px" height="200px">
+                            <div id="p-hide">
+                                <img id="sec-img" src="/media/{{ item.owner.profile.profile_pic }}" width="20px" height="20px" style="margin-right:3px">
+                                {{item.name}}
+                            </div>
+                            <!-- <table>
+                                <tr>
+                                    <td>{{item.price}}</td>
+                                </tr>
+                            </table> -->
+                            <a href="{% url 'itemView' item.id %}" id="p-a">See More</a>
+                        </div>
+                    {% endfor %}
+                </div>
+            </div>
+        
+        <div class="footer">
+			<div class="footer-container">
+				<div class="comp">
+					<p>Company</p>
+					<p>Team</p>
+					<p>History</p>
+		
+				</div>
+				<div class="features">
+					<p>Features</p>
+					<p>Cool Stuff</p>
+					<p>GitHub</p>
+				</div>
+				<div class="Legal">
+					<p>Privacy Policy</p>
+					<p>Terms Of Use</p>
+                    <p>Cool Stuff</p>
+				</div>
+			</div>
+			
+	</div>
+    <div id="mess">
+        {% if messages %}
+            <ul class="messages">
+                {% for message in messages %}
+                    <li {% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+                {% endfor %}
+            </ul>
+        {% endif %}
+    </div>
+    </body>
+</html>

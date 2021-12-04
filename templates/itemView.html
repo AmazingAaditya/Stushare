@@ -1,0 +1,93 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Stushare</title>
+        <link rel="stylesheet" href="{% static '/css/view.css' %}">
+        <link rel="stylesheet" href="{% static '/css/messages.css' %}">
+        <link rel="stylesheet" href="{% static '/css/home.css' %}">
+        <link rel="stylesheet" href="{% static '/css/product.css' %}">
+        <link rel="stylesheet" href="{% static '/css/edit.css' %}">
+
+        <script src="https://kit.fontawesome.com/bc6f27e589.js" crossorigin="anonymous"></script>
+        <link rel="preconnect" href="https://fonts.gstatic.com">
+        <link href="https://fonts.googleapis.com/css2?family=Poppins&display=swap" rel="stylesheet">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+     
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    </head>
+    <body>
+        <div class = "nav-all">
+            <div class="brand">
+                <section>Stushare</section>
+            </div>
+            <p style="font-size: 50px;margin-left: 10px;"> </p>
+            <button style="margin-left: auto;font-size: 25px;" onclick="back()">Go Back</button>
+
+			<a class="sign" href="{% url 'profile' %}"><i class="fa fa-user-circle"></i></a>
+            <a class="sign" href="{% url 'logout' %}"><i class="fas fa-sign-in-alt"></i></a>
+        </div>
+        <div id="mess">
+            {% if messages %}
+                <ul class="messages">
+                    {% for message in messages %}
+                        <li {% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+                    {% endfor %}
+                </ul>
+            {% endif %}
+        </div>
+        <div id="page-des"><h2>Product</h2></div>
+        <div class="prod-det">
+            <div class="prod-img">
+                <img style="object-fit: contain;border: 0px solid;" src="/media/{{ item.item_pic }}">
+            </div>
+            <div class="det">
+                <h2>{{item.name}}</h2>
+                <img src="/media/{{ item.owner.profile.profile_pic }}" style="margin-right: 5px;object-fit: contain;" width="50px" height="50px" id="s-icon"><p id="s-name">{{ item.owner.username }}</p>
+                <br>
+                <section id="additional-det">
+                    <table>
+                        <tbody>
+                            <tr>
+                                <th class="det-col-1">Contact No</th>
+                                <th class="det-col-2">{{item.owner.profile.phone_number}}</th>
+                            </tr>
+                            <tr>
+                                <td class="det-space"></td>
+                                <td class="det-space"></td>
+                            </tr>
+                            <tr>
+                                <th class="det-col-1">Price</th>
+                                <th class="det-col-2">{{item.price}}</th>
+                            </tr>
+                            <tr>
+                                <td class="det-space"></td>
+                                <td class="det-space"></td>
+                            </tr>
+                            <tr>
+                                <th class="det-col-1">Location</th>
+                                <th class="det-col-2">{{item.owner.profile.location}}</th>
+                            </tr>
+                        </thead>
+                    </table>
+                </section>
+                <br>
+                
+            </div>
+        </div>
+        <div class="des-prod">
+            <h2>Description</h2>
+            <p>{{item.description}}</p>
+        </div>
+        <script>
+            document.getElementById("mess").style.display = "block";
+                setTimeout(function(){
+                    document.getElementById("mess").style.display = "none";
+                },3000);
+            const back = () =>{
+                window.history.back();
+            };
+        </script>
+    </body>
+</html>

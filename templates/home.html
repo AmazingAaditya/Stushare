@@ -1,0 +1,74 @@
+{% load static %}
+
+<!DOCTYPE HTML>
+<html>
+<head>
+	<title>Stushare</title>
+	<link rel="stylesheet" href="{% static '/css/homebasic.css' %}">
+	<link rel="stylesheet" href="{% static '/css/home.css' %}">
+	<link rel="preconnect" href="{% static 'https://fonts.gstatic.com' %}">
+	<link rel="stylesheet" href="{% static '/css/messages.css' %}">
+	<link href="https://fonts.googleapis.com/css2?family=Poppins&display=swap" rel="stylesheet">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+
+<body>
+	<div class="first" style="height:100%;">
+		<nav class="head">
+			<div id="logo">Stushare</div>
+			<a id="about" href="#">About</a>
+			<a id="sign" href="{% url 'register' %}">Signup</a>
+			
+			<a id="sign" href="{% url 'login' %}">Login</a>
+		</nav>
+		<div class="intro">
+			<div class="message">
+				<p id="top">A campus where</p>
+				<p id="bottom">students <span style="color:#00A2FF;">help</span> students</p>
+			</div>
+		<div id="button">
+			
+				<form action="register"><centre> 
+				<button pointer>Sign up</button></centre>
+			</form>
+		   
+		</div>
+	</div>
+	</div>
+	<div class="second">
+		<div class="childf">
+			<p>Share items</p>
+			<p>and find items</p>
+			<p>on campus</p>
+		</div>
+		
+	</div>
+	
+        <br><br>
+		<div class="footer">
+			<div class="footer-container">
+				<div class="comp">
+					<p>Company</p>
+					<p>The product</p>
+					<p>History</p>
+				</div>
+				<div class="features">
+					<p>Features</p>
+					<p>Cool Stuff</p>
+					<p>Contact us</p>
+				</div>
+				<div class="Legal">
+					<p>Privacy Policy</p>
+					<p>Terms Of Use</p>
+                    <p>Something</p>
+				</div>
+				
+			</div>
+			
+	</div>
+
+</body>
+</html>
+
+
+
